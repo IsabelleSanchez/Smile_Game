@@ -4,34 +4,43 @@
   .visivel{
     display:inline;
   }
+  
   .inicial {
     text-align: center;
     font-size: 100px;
-    background-color: lightgrey;
+    background-color: rgba(187, 224, 245, 0.904);
     width: 150px;
     height: 200px;
-    border: 15px solid green;
+    border: 5px solid rgba(145, 211, 255, 0.884);
     padding: 10px;
     margin: 20px;
+    border-radius: 20% ;
   }
+
   .acertou {
     text-align: center;
-    color: yellow;
-    background-color: LawnGreen;
+    color: #ffd9e3;
+    background-color: #ffc5d5;
     width: 150px;
     height: 200px;
-    border: 15px solid yellow;
+    border: 5px solid #ffecf1;
     padding: 10px;
     margin: 20px;
+    border-radius: 20% ;
   }
+
   .errou {
     text-align: center;
-    font-size: 100px;
-    color: white;
-    background-color: red;
+    color: #f5f8b0;
+    background-color: #d6d993;
     width: 150px;
     height: 200px;
-    border: 15px solid black;
+    border: 5px solid #e5e9a2;
     padding: 10px;
     margin: 20px;
+    border-radius: 20% ;
+
   }
+  
+    
+  

@@ -29,10 +29,15 @@
       let divis = document.getElementsByTagName("div");
       //percorremos todas as divs armazenadas
       for (i = 0; i < divis.length; i++) {
-        //verificamos se sao as divs com ids 0 ou 1 ou 2
-        if (divis[i].id == 0 || divis[i].id == 1 || divis[i].id == 2) {
-          //alteramos a classe css das divs 0, 1 e 2 (className)
+        //verificamos se sao as divs com ids 0 ou 1 ou 2 ou 3
+        if (divis[i].id == 0 || divis[i].id == 1 || divis[i].id == 2 || divis[i].id == 3) {
+          //alteramos a classe css das divs 0, 1, 2 e 3 (className)
           divis[i].className = "inicial";
+          // Remove qualquer imagem anterior
+            const imagemExistente = divis[i].querySelector('img');
+            if (imagemExistente) {
+                imagemExistente.remove();
+            }
         }
       }
 
@@ -62,7 +67,7 @@
       const img = new Image(100);
       img.id = "imagem";
       //altera o atributo src (source) da imagem criada
-      img.src = "https://upload.wikimedia.org/wikipedia/commons/2/2e/Oxygen480-emotes-face-smile-big.svg";
+      img.src = "https://i.pinimg.com/originals/9d/cb/66/9dcb66c7f4f125c7c1f723b17c879a15.gif";
       //adiciona a imagem criada na div (obj) escolhida pelo jogador (appendChild)
       obj.appendChild(img);
     }
@@ -75,15 +80,15 @@
         jogar = false;
         //incrementa as tentativas
         tentativas++;
-        //verifica se jogou 3 vezes
-        if (tentativas == 3) {
+        //verifica se jogou 4 vezes
+        if (tentativas == 4) {
           //oculta o botao joganovamente alterando a classe css (getElementById e className)
           btnJogarNovamente.className = 'invisivel';
           //mostra o botao reiniciar alterando a classe css (getElementById e className)
           btnReiniciar.className = 'visivel';
         }
         //a variável sorteado recebe um valor inteiro (Math.floor) aleatório (Math.random)
-        let sorteado = Math.floor(Math.random() * 3);
+        let sorteado = Math.floor(Math.random() * 4);
         //se o id da <div> escolhida pelo jogador for igual ao número sorteado
         if (obj.id == sorteado) {
           //chama a funçao acertou passando a div escolhida pelo jogador
@@ -94,6 +99,10 @@
           //altera a classe da <div> escolhida pelo jogador para a classe errou
           obj.className = "errou";
           //armazena a div aonde Smile está escondido (getElementById)
+          const imgErro = new Image(100);
+            imgErro.src = "https://i.pinimg.com/736x/13/de/d7/13ded78ab10a2c6d28501fc82007fba1.jpg"; // Substitua pelo caminho da sua imagem de erro
+            // Adiciona a imagem de erro na div clicada
+          obj.appendChild(imgErro);
           const objSorteado = document.getElementById(sorteado);
           //chama a funçao acertou para mostrar a div aonde está o Smile
           acertou(objSorteado);
