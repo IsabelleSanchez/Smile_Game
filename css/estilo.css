@@ -1,20 +1,63 @@
-.invisivel{
+  body {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    align-items: center;
+    font-family: 'Times New Roman';
+    background-color: #fff4f2;
+    
+  }
+  
+  #principal{
+    text-align: center;
+    font-size: 30px;
+    color: #400000;
+  }
+
+  h1{
+    font-size: 50px;
+    color:#400000;
+  }
+
+  .container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px; 
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); 
+    text-align: center; 
+  }
+
+  .invisivel{
     display:none;
   }
+
   .visivel{
     display:inline;
+    width: 100px;
+    height: 90px;
+    border-radius: 80%;
+    font-family: 'Times New Roman';
+    font-size: 12px;
+    background-color: #ffd9e3;
+    border: 6px solid #ffc5d5;
   }
   
   .inicial {
     text-align: center;
     font-size: 100px;
-    background-color: rgba(187, 224, 245, 0.904);
+    background-color: #e5e9a2;
     width: 150px;
     height: 200px;
-    border: 5px solid rgba(145, 211, 255, 0.884);
+    border: 5px solid #f5f8b0;
     padding: 10px;
     margin: 20px;
     border-radius: 20% ;
+  }
+
+  .inicial img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 50%;
   }
 
   .acertou {
@@ -31,16 +74,18 @@
 
   .errou {
     text-align: center;
-    color: #f5f8b0;
-    background-color: #d6d993;
+    color: #ee7154;
+    background-color: #e94226;
     width: 150px;
     height: 200px;
-    border: 5px solid #e5e9a2;
+    border: 5px solid #f4a081;
     padding: 10px;
     margin: 20px;
     border-radius: 20% ;
 
   }
+
+  
   
     
   
