@@ -1,4 +1,4 @@
-    //declaraçao das variaveis globais
+//declaraçao das variaveis globais
 let desempenho = 0;
 let tentativas = 0;
 let acertos = 0;
@@ -16,7 +16,8 @@ function reiniciar() {
     tentativas = 0;
     acertos = 0;
     jogar = true;
-    jogarNovamente();
+    // Remove todas as imagens e redefine as classes das divs
+    limparTabuleiro();
     atualizaPlacar(0, 0);
     //mostra o botao jogarnovamente alterando a classe css (className)
     btnJogarNovamente.className = 'visivel';
@@ -24,32 +25,27 @@ function reiniciar() {
     btnReiniciar.className = 'invisivel';
 }
 
-//funçao jogar novamente
-function jogarNovamente() {
-    jogar = true;//variável jogar volta a ser verdadeira
-    //armazenamos todas as div na variável divis (getElementsByTagName)
+// Nova função para limpar o tabuleiro e remover imagens
+function limparTabuleiro() {
     let divis = document.getElementsByTagName("div");
-    //percorremos todas as divs armazenadas
     for (let i = 0; i < divis.length; i++) {
-        //verificamos se sao as divs com ids 0 ou 1 ou 2 ou 3
+        // Verifica se são as divs com ids 0, 1, 2 ou 3
         if (divis[i].id == 0 || divis[i].id == 1 || divis[i].id == 2 || divis[i].id == 3) {
-            //alteramos a classe css das divs 1, 2, 3 e 4 (className)
-            divis[i].className = "inicial";
-            // Remove qualquer imagem anterior
+            // Remove qualquer imagem existente dentro da div
             const imagemExistente = divis[i].querySelector('img');
             if (imagemExistente) {
                 imagemExistente.remove();
             }
+            // Altera a classe css das divs para "inicial"
+            divis[i].className = "inicial";
         }
     }
+}
 
-    //armazenamos a imagem do Smile na variável imagem (getElementById)
-    let imagem = document.getElementById("imagem");
-    //se a imagem nao for nula (se ela existir)
-    if (imagem) {
-        //removemos a imagem do Smile
-        imagem.remove();
-    }
+//funçao jogar novamente
+function jogarNovamente() {
+    jogar = true; //variável jogar volta a ser verdadeira
+    limparTabuleiro(); // Limpa o tabuleiro a cada nova jogada
 }
 
 //funçao que atualiza o placar
@@ -66,7 +62,7 @@ function acertou(obj) {
     obj.className = "acertou";
     //Criar uma constante img que armazena um novo objeto imagem com largura de 100px
     const img = new Image(100);
-    img.id = "imagem";
+    img.id = "imagem"; // Mantido o ID para referência, se necessário
     //altera o atributo src (source) da imagem criada
     img.src = "https://i.pinimg.com/736x/e1/41/c1/e141c1b7ffad82123a7966f9263b14a5.jpg";
     //adiciona a imagem criada na div (obj) escolhida pelo jogador (appendChild)
@@ -84,39 +80,47 @@ function verifica(obj) {
         jogar = false;
         //a variável sorteado recebe um valor inteiro aleatório
         let sorteado = Math.floor(Math.random() * 4);
-        //se o id da <div> escolhida pelo jogador for igual ao número sorteado
+
         if (obj.id == sorteado) {
             //chama a funçao acertou
             acertou(obj);
             //incrementa o contador de acertos
             acertos++;
-            // Permite jogar novamente após um acerto
-            setTimeout(() => {
-                jogar = true;
-            }, 1500); // Espera um pouco para mostrar a imagem antes de permitir nova jogada
-        } else {//se errou a tentativa
+        } else { //se errou a tentativa
             //altera a classe da <div> escolhida para errou
             obj.className = "errou";
             const imgErro = new Image(100);
             imgErro.src = "https://i.pinimg.com/736x/64/f8/71/64f8713bdb8c2764ea56d19f23a2aa75.jpg";
             obj.appendChild(imgErro);
             somErro.play();
-            const objSorteado = document.getElementById(sorteado);
-            // Permite jogar novamente após um erro
-            setTimeout(() => {
+        }
+
+        // Aguarda um pouco antes de permitir a próxima jogada ou reiniciar
+        setTimeout(() => {
+            // Se as tentativas não atingiram o limite, permite jogar novamente
+            if (tentativas < 4) { // Assumindo 4 como o limite de tentativas
                 jogar = true;
-            }, 1500); // Espera um pouco para mostrar as imagens antes de permitir nova jogada
-        }
-        //verifica se o número de tentativas chegou ao limite (você pode ajustar esse limite)
-        if (tentativas >= 4) {
-            btnJogarNovamente.className = 'invisivel';
-            btnReiniciar.className = 'visivel';
-            jogar = false; // Impede mais jogadas até reiniciar
-        }
+                // Redefine a classe da div para "inicial" e remove a imagem para a próxima rodada
+                obj.className = "inicial";
+                const imagemAtual = obj.querySelector('img');
+                if (imagemAtual) {
+                    imagemAtual.remove();
+                }
+                // Se errou e é o final da rodada, mostra a imagem do acerto na div sorteada.
+                // Isso não é necessário se o objetivo é apenas exibir a imagem de erro.
+                // Se você quer mostrar onde estava o acerto, precisaria de uma lógica diferente.
+            } else {
+                // Se as tentativas chegaram ao limite
+                btnJogarNovamente.className = 'invisivel';
+                btnReiniciar.className = 'visivel';
+                jogar = false; // Impede mais jogadas até reiniciar
+            }
+        }, 1500); // Espera um pouco para mostrar a imagem antes de permitir nova jogada
+
         //chama a funçao que atualiza o placar
         atualizaPlacar(acertos, tentativas);
-    } else {//se clicar em outra carta sem reiniciar
-        alert('Clique em "Jogar novamente"');
+    } else { //se clicar em outra carta sem reiniciar
+        alert('Clique em "Jogar novamente" ou "Reiniciar" para começar uma nova rodada.');
     }
 }
 //adiciona eventos aos botões
